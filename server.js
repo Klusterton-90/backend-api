@@ -4,6 +4,7 @@ import cookieSession from "cookie-session";
 import passport from "./middlewares/passport/index.js";
 import sequelize from "./config/db.js";
 import authrouter from './routes/authRoutes.js'
+import patientrouter from './routes/patientRoutes.js'
 import healthrouter from './routes/healthProfRoutes.js'
 
 
@@ -26,6 +27,7 @@ app.use(passport.session());
 
 //Routes
 app.use('/api/v1', authrouter)
+app.use('/api/v1', patientrouter)
 app.use('/api/v1', healthrouter)
 
 sequelize.sync();
