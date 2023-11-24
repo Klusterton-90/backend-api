@@ -3,11 +3,19 @@ import sequelize from '../config/db.js';
 import User from './User.js';
 
 const Medication = sequelize.define('Medication', {
-  name: {
+  type: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  dosage: {
+  medicine: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  diagnosis: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -15,13 +23,10 @@ const Medication = sequelize.define('Medication', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  startDate: {
+  duration: {
     type: DataTypes.DATE,
     allowNull: false,
-  },
-  endDate: {
-    type: DataTypes.DATE,
-  },
+  }
 },
 {
     timestamps: false,

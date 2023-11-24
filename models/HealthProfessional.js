@@ -9,23 +9,26 @@ const HealthProfessional = sequelize.define('HealthProfessional', {
         primaryKey: true,
         allowNull: false,
       },
-    name: {
-        type: DataTypes.STRING,
-    },
-    username: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    password: {
+      },
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    email: {
+      },
+      phoneNumber: {
         type: DataTypes.STRING,
-    },
-    specialty: {
+        allowNull: false,
+      },
+      password: {
         type: DataTypes.STRING,
-    },
+        allowNull: false,
+      },
+      verified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      }
 },
 {
     timestamps: false,

@@ -10,11 +10,7 @@ const User = sequelize.define(
       primaryKey: true,
       allowNull: false,
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    password: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -22,6 +18,18 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    }
   },
   {
     timestamps: false,
