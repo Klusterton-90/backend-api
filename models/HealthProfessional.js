@@ -32,9 +32,8 @@ const HealthProfessional = sequelize.define('HealthProfessional', {
 },
 {
     timestamps: false,
-  },);
+  }
+  );
 
-HealthProfessional.hasMany(User);
-User.belongsTo(HealthProfessional);
 
 export default HealthProfessional;
