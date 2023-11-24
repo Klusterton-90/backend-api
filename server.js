@@ -4,6 +4,8 @@ import cookieSession from "cookie-session";
 import passport from "./middlewares/passport/index.js";
 import sequelize from "./config/db.js";
 import authrouter from './routes/authRoutes.js'
+import healthrouter from './routes/healthProfRoutes.js'
+
 
 dotenv.config();
 
@@ -24,8 +26,9 @@ app.use(passport.session());
 
 //Routes
 app.use('/api/v1', authrouter)
+app.use('/api/v1', healthrouter)
 
-sequelize.authenticate();
+sequelize.sync();
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

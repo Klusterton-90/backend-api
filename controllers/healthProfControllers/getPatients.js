@@ -1,16 +1,18 @@
-import User from "../../models/User";
-import HealthProfessional from "../../models/HealthProfessional";
+import User from "../../models/User.js";
+import HealthProfessional from "../../models/HealthProfessional.js";
 
-const getPatients = async (req, res) => {
+const getPatients = async function (req, res) {
   try {
     const healthproviderId = req.params.healthproviderId;
 
-    const healthprovider = await HealthProfessional.findByPk(healthproviderId, {
-      include: [{ model: User }],
-    });
+    const patients = await User.findAll(
+      {where: {HealthProfessionalId: healthproviderId},
+      attributes: ['id', 'name', 'phoneNumber', 'email'],},
+      );
 
-    const patients = healthprovider.Patients;
-    res.json({ patients });
+    res.status(200).json({
+      id: healthproviderId,
+      data: patients });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }

@@ -1,4 +1,4 @@
-import getPatients from "./getPatients";
+import getPatients from "./getPatients.js";
 
 const healthProfController = {
   getPatients,
