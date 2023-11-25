@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
+import HealthProfessional from "./HealthProfessional.js"
 
 const User = sequelize.define(
   "User",

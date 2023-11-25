@@ -26,7 +26,15 @@ const Medication = sequelize.define('Medication', {
   duration: {
     type: DataTypes.DATE,
     allowNull: false,
-  }
+  },
+  reminderTime: {
+    type: DataTypes.TIME,
+  },
+  reminderStatus: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'active',
+  },
 },
 {
     timestamps: false,
