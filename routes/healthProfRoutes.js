@@ -7,5 +7,4 @@ router.get(
   "/healthprovider/:healthproviderId/patients",
   healthProfController.getPatients
 );
-
-export default router
+export default router;
