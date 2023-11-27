@@ -1,51 +1,69 @@
 import User from "../../models/User.js";
-import HealthProfessional from "../../models/HealthProfessional.js"
+import HealthProfessional from "../../models/HealthProfessional.js";
 import sendEmail from "../../helpers/emailSender.js";
 import jwt from "jsonwebtoken";
 import ejs from "ejs";
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { fileURLToPath } from "url";
+import path from "path";
+import bcrypt from "bcrypt";
+
+const saltRounds = 10;
 
 const signup = async function (req, res) {
   try {
-    const { username, password, email, name, phoneNumber, HealthProfessionalId, usertype } = req.body;
+    const {
+      username,
+      password,
+      email,
+      name,
+      phoneNumber,
+      HealthProfessionalId,
+      usertype,
+    } = req.body;
     const user = await User.findOne({ where: { email: email } });
     if (user) {
       return res.status(400).json({
         error: "Sorry, already a user with this email already exists",
       });
-    }
-    else if (!user){
-      const healthprof = await HealthProfessional.findOne({ where: { email: email } });
-      if (healthprof){
+    } else if (!user) {
+      const healthprof = await HealthProfessional.findOne({
+        where: { email: email },
+      });
+      if (healthprof) {
         return res.status(400).json({
           error: "Sorry, already a user with this email already exists",
         });
       }
     }
 
-    if (usertype == 'patient') {
-      
+    //hash password
+    const generateHash = (password) => {
+      return bcrypt.hash(password, saltRounds, null);
+    };
+
+    //user password
+    const userPassword = generateHash(password);
+
+    if (usertype == "patient") {
       const newUser = {
         username: username,
-        password: password,
+        password: userPassword,
         email: email,
         name: name,
         phoneNumber: phoneNumber,
         HealthProfessionalId: HealthProfessionalId,
       };
-  
+
       await User.create(newUser);
-    }
-    else if (usertype == 'healthProfessional') {
+    } else if (usertype == "healthProfessional") {
       const newHealthProfessional = {
         username: username,
-        password: password,
+        password: userPassword,
         email: email,
         name: name,
         phoneNumber: phoneNumber,
       };
-  
+
       await HealthProfessional.create(newHealthProfessional);
     }
 
@@ -57,8 +75,17 @@ const signup = async function (req, res) {
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const templatePath = path.resolve( __dirname,'..', '..', 'views', 'MedPal.ejs');
-    const emailHtml = await ejs.renderFile(templatePath, { name, verificationLink });
+    const templatePath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "views",
+      "MedPal.ejs"
+    );
+    const emailHtml = await ejs.renderFile(templatePath, {
+      name,
+      verificationLink,
+    });
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,

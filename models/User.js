@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
-import HealthProfessional from "./HealthProfessional.js"
+import HealthProfessional from "./HealthProfessional.js";
 
 const User = sequelize.define(
   "User",
@@ -30,7 +30,7 @@ const User = sequelize.define(
     verified: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    }
+    },
   },
   {
     timestamps: false,
@@ -39,9 +39,5 @@ const User = sequelize.define(
 
 HealthProfessional.hasMany(User);
 User.belongsTo(HealthProfessional);
-
-User.prototype.validPassword = function (password) {
-  return this.password === password;
-};
 
 export default User;
