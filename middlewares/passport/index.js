@@ -2,9 +2,9 @@ import passport from "passport";
 import User from "../../models/User.js";
 import { Strategy as LocalStrategy } from "passport-local";
 
-passport.use(new LocalStrategy(async function (name, password, done) {
+passport.use(new LocalStrategy(async function (username, password, done) {
   try {
-    const user = await User.findOne({ where: { name: name } });
+    const user = await User.findOne({ where: { name: username } });
     if (!user) {
       return done(null, false, { message: "Incorrect username." });
     }
