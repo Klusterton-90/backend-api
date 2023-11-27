@@ -29,7 +29,7 @@ const signup = async function (req, res) {
     //hash password
     const hash = await bcrypt.hash(password, saltRounds)
 
-    if (usertype == 'patient') {
+    if (usertype == 'Patient') {
 
       const HealthProfessionalId = await HealthProfessional.findOne({where: {
         name: healthProfessionalName
@@ -45,7 +45,7 @@ const signup = async function (req, res) {
   
       await User.create(newUser);
     }
-    else if (usertype == 'healthProfessional') {
+    else if (usertype == 'HealthCare Provider') {
       const newHealthProfessional = {
         name: username,
         password: hash,
