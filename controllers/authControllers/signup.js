@@ -10,7 +10,7 @@ import bcrypt from "bcrypt"
 const signup = async function (req, res) {
   try {
     const saltRounds = 10;
-    const { username, password, email, phoneNumber, HealthProfessionalId, usertype } = req.body;
+    const { username, password, email, phoneNumber, healthProfessionalName, usertype } = req.body;
     const user = await User.findOne({ where: { email: email } });
     if (user) {
       return res.status(400).json({
@@ -30,6 +30,10 @@ const signup = async function (req, res) {
     const hash = await bcrypt.hash(password, saltRounds)
 
     if (usertype == 'patient') {
+
+      const HealthProfessionalId = await HealthProfessional.findOne({where: {
+        name: healthProfessionalName
+      }})
       
       const newUser = {
         name: username,
