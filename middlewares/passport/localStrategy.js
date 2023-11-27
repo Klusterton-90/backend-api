@@ -1,9 +1,9 @@
 import User from "../../models/User.js";
 import { Strategy } from "passport-local";
 
-const strategy = new Strategy(async function (username, password, done) {
+const LocalStrategy = new Strategy(async function (name, password, done) {
   try {
-    const user = await User.findOne({ where: { username: username } });
+    const user = await User.findOne({ where: { name: name } });
     if (!user) {
       return done(null, false, { message: "Incorrect username. " });
     }
@@ -19,4 +19,4 @@ const strategy = new Strategy(async function (username, password, done) {
   }
 });
 
-export default strategy
+export default LocalStrategy

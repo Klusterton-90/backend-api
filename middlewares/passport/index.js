@@ -1,5 +1,5 @@
 import passport from "passport";
-import strategy from "./localStrategy.js";
+import LocalStrategy from "./localStrategy.js";
 import User from "../../models/User.js";
 
 passport.serializeUser(function (user, done) {
@@ -12,6 +12,6 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-passport.use(strategy);
+passport.use(LocalStrategy);
 
 export default passport;
