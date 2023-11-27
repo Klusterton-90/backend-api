@@ -1,5 +1,6 @@
 import passport from "passport";
 import User from "../../models/User.js";
+import HealthProfessional from "../../models/HealthProfessional.js";
 import bcrypt from "bcrypt";
 import { Strategy as LocalStrategy } from "passport-local";
 
@@ -7,7 +8,17 @@ passport.use(new LocalStrategy(async function (username, password, done) {
   try {
     const user = await User.findOne({ where: { name: username } });
     if (!user) {
-      return done(null, false, { message: "Incorrect username." });
+      const professional = await HealthProfessional.findOne({ where: { name: username } });
+      const passwordIsValid = (userPassword, enteredPassword) => {
+        return bcrypt.compareSync(enteredPassword, userPassword);
+      };
+  
+      if (!passwordIsValid(professional.password, password)) {
+        return done(null, false, {
+          message: "Incorrect Password",
+        });
+      }
+      return done(null, professional);
     }
     //password validation
     const passwordIsValid = (userPassword, enteredPassword) => {
