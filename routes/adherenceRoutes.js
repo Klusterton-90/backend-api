@@ -1,8 +1,10 @@
 import { Router } from "express";
-import adherenceControllers from "../controllers/adherenceControllers";
+import adherenceControllers from "../controllers/adherenceControllers/index.js";
 
 const router = Router();
 
-router.get("/:healthprofId/adherence", adherenceControllers.getAllAdherence);
-router.get("/:userId/adherence", adherenceControllers.getAdherence);
-router.post("/addAdherence", adherenceControllers.addAdherence);
+router.get("/:healthProfId/adherence", adherenceControllers.getAllAdherence);
+router.get("/get/:userId/adherence", adherenceControllers.getAdherence);
+router.post("/:userId/addAdherence", adherenceControllers.addAdherence);
+
+export default router

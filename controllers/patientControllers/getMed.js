@@ -1,6 +1,6 @@
 import Medication from '../../models/Medication.js'
 
-const getMed = async (res, req) => {
+const getMed = async (req, res) => {
     try {
         const { id } = req.params
         const medication = await Medication.findByPk(id);

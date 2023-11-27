@@ -1,6 +1,6 @@
-import getAdherence from "./getAdherence";
-import getAllAdherence from "./getAllAdherence";
-import addAdherence from "./postAdherence";
+import getAdherence from "./getAdherence.js";
+import getAllAdherence from "./getAllAdherence.js";
+import addAdherence from "./postAdherence.js";
 
 const adherenceControllers = {
   getAdherence,

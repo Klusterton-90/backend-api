@@ -25,7 +25,7 @@ const signup = async function (req, res) {
     }
 
     if (usertype == 'patient') {
-      console.log(HealthProfessionalId)
+      
       const newUser = {
         username: username,
         password: password,

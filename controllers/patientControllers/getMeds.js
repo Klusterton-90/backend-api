@@ -1,6 +1,6 @@
 import Medication from '../../models/Medication.js'
 
-const getMeds = async (res, req) => {
+const getMeds = async (req, res) => {
     try {
         const { userId } = req.params
         const medications = await Medication.findAll({where: {UserId: userId}});

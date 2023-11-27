@@ -4,7 +4,7 @@ import patientController from "../controllers/patientControllers/index.js";
 
 const router = Router();
 
-router.post('/create', patientController.addMed)
+router.post('/:userId/create', patientController.addMed)
 
 router.get('/:userId/reminders', patientController.getMeds)
 

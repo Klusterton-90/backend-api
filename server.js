@@ -3,9 +3,10 @@ import dotenv from "dotenv";
 import cookieSession from "cookie-session";
 import passport from "./middlewares/passport/index.js";
 import sequelize from "./config/db.js";
-import authrouter from './routes/authRoutes.js'
-import patientrouter from './routes/patientRoutes.js'
-import healthrouter from './routes/healthProfRoutes.js'
+import authRouter from './routes/authRoutes.js'
+import patientRouter from './routes/patientRoutes.js'
+import healthRouter from './routes/healthProfRoutes.js'
+import adherenceRouter from './routes/adherenceRoutes.js'
 
 
 dotenv.config();
@@ -26,9 +27,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Routes
-app.use('/api/v1', authrouter)
-app.use('/api/v1', patientrouter)
-app.use('/api/v1', healthrouter)
+app.use('/api/v1', authRouter)
+app.use('/api/v1', patientRouter)
+app.use('/api/v1', healthRouter)
+app.use('/api/v1', adherenceRouter)
 
 sequelize.sync();
 

@@ -1,7 +1,7 @@
 import Medication from '../../models/Medication.js'
 
 
-const updateMed = async (res, req) => {
+const updateMed = async (req, res) => {
     try {
         const updatedData = await Medication.update(req.body, {
           where: { id: id },

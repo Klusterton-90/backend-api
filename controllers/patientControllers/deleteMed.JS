@@ -1,6 +1,6 @@
 import Medication from '../../models/Medication.js'
 
-const deleteMed = async (res, req) => {
+const deleteMed = async (req, res) => {
     try {
         const { id } = req.params
         const rowDeleted = await Medication.destroy({

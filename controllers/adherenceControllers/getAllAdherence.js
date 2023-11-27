@@ -1,14 +1,17 @@
-import Adherence from "../../models/Adherence";
+import Adherence from "../../models/Adherence.js";
+import User from "../../models/User.js";
 
 const getAllAdherence = async (req, res) => {
   const { healthProfId } = req.params;
   try {
-    const allAdherence = await Adherence.findAll({
-      where: { HealthProfId: healthProfId },
+    const patients = await User.findAll({where: { HealthProfessionalId : healthProfId }})
+    const adherenceData = await Adherence.findAll({
+      where: { UserId: patients.map(patient => patient.id) },
     });
 
     res.status(200).json({
-      data: allAdherence,
+      status: 200,
+      data: adherenceData,
     });
   } catch (error) {
     res.status(500).json({

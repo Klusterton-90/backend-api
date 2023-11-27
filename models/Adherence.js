@@ -2,7 +2,6 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/db.js';
 import User from './User.js';
 import Medication from './Medication.js';
-import Reminder from './Reminder.js'; 
 
 const Adherence = sequelize.define('Adherence', {
   timestamp: {
@@ -24,7 +23,5 @@ User.hasMany(Adherence);
 Adherence.belongsTo(User);
 Medication.hasMany(Adherence);
 Adherence.belongsTo(Medication);
-Reminder.hasMany(Adherence);
-Adherence.belongsTo(Reminder);
 
 export default Adherence;
