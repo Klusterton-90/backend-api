@@ -5,10 +5,12 @@ import jwt from "jsonwebtoken";
 import ejs from "ejs";
 import { fileURLToPath } from 'url';
 import path from 'path';
+import bcrypt from "bcrypt"
 
 const signup = async function (req, res) {
   try {
-    const { username, password, email, name, phoneNumber, HealthProfessionalId, usertype } = req.body;
+    const saltRounds = 10;
+    const { username, password, email, phoneNumber, HealthProfessionalId, usertype } = req.body;
     const user = await User.findOne({ where: { email: email } });
     if (user) {
       return res.status(400).json({
@@ -24,13 +26,15 @@ const signup = async function (req, res) {
       }
     }
 
+    //hash password
+    const hash = await bcrypt.hash(password, saltRounds)
+
     if (usertype == 'patient') {
       
       const newUser = {
-        username: username,
-        password: password,
+        name: username,
+        password: hash,
         email: email,
-        name: name,
         phoneNumber: phoneNumber,
         HealthProfessionalId: HealthProfessionalId,
       };
@@ -39,10 +43,9 @@ const signup = async function (req, res) {
     }
     else if (usertype == 'healthProfessional') {
       const newHealthProfessional = {
-        username: username,
-        password: password,
+        name: username,
+        password: hash,
         email: email,
-        name: name,
         phoneNumber: phoneNumber,
       };
   
@@ -58,7 +61,7 @@ const signup = async function (req, res) {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     const templatePath = path.resolve( __dirname,'..', '..', 'views', 'MedPal.ejs');
-    const emailHtml = await ejs.renderFile(templatePath, { name, verificationLink });
+    const emailHtml = await ejs.renderFile(templatePath, { username, verificationLink });
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
