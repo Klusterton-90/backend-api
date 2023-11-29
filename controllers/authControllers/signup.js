@@ -60,7 +60,7 @@ const signup = async function (req, res) {
       expiresIn: "1d",
     });
 
-    const verificationLink = `https://medpal-api.onrender.com/verify/${verificationToken}`;
+    const verificationLink = `https://medpal-api.onrender.com/api/v1/verify/${verificationToken}`;
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
