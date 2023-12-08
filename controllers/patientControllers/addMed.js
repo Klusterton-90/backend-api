@@ -4,7 +4,7 @@ import cron from 'node-cron'
 
 const addMed = async (req, res) => {
     try {
-        const {userid} = req.params;
+        const {userId} = req.params;
         const {type, medicine, diagnosis, description, frequency, duration, reminders} = req.body;
         const newMed = {
             type: type,
@@ -14,7 +14,7 @@ const addMed = async (req, res) => {
             frequency: frequency,
             duration: duration,
             reminders: reminders,
-            UserId: userid
+            UserId: userId
         }
 
         await Medication.create(newMed);

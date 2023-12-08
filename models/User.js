@@ -40,4 +40,8 @@ const User = sequelize.define(
 HealthProfessional.hasMany(User);
 User.belongsTo(HealthProfessional);
 
+User.prototype.validPassword = function (password) {
+  return this.password === password;
+};
+
 export default User;

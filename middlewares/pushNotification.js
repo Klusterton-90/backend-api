@@ -18,10 +18,10 @@ const pushNotification = async (patientReminders , message) => {
       for (const reminderTime of reminders) {
         // Schedule push notification for each reminder time
         const scheduledTime = new Date();
-        scheduledTime.setHours(Number(reminderTime.split(':')[0]));
-        scheduledTime.setMinutes(Number(reminderTime.split(':')[1]));
+        scheduledTime.setHours(reminderTime.getHours());
+        scheduledTime.setMinutes(reminderTime.getMinutes());
 
-        notification.sendAfter = scheduledTime.toISOString();
+        notification.sendAfter = scheduledTime;
         const response = await client.createNotification(notification);
     }
      res.status(200).json({
