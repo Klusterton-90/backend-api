@@ -7,7 +7,7 @@ import { Strategy as LocalStrategy } from "passport-local";
 passport.use(
   new LocalStrategy(async function (username, password, done) {
     try {
-      const user = await User.findOne({ where: { email: username } });
+      var user = await User.findOne({ where: { email: username } });
       //If its a patient
       if (user) {
         //password validation
@@ -24,11 +24,10 @@ passport.use(
       }
       if (!user) {
         //If its a health professional
-        const professional = await HealthProfessional.findOne({
+        var user = await HealthProfessional.findOne({
           where: { email: username },
         });
-
-        if (!professional) {
+        if (!user) {
           return done(null, false, {
             message: "User identity not valid",
           });
@@ -37,12 +36,12 @@ passport.use(
           return bcrypt.compareSync(enteredPassword, userPassword);
         };
 
-        if (!passwordIsValid(professional.password, password)) {
+        if (!passwordIsValid(user.password, password)) {
           return done(null, false, {
             message: "Incorrect Password",
           });
         }
-        return done(null, professional);
+        return done(null, user);
       }
     } catch (error) {
       return done(error);
